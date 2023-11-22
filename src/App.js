@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import { useDemoData } from "@mui/x-data-grid-generator";
 
-function App() {
+export default function App() {
+  const { data } = useDemoData({
+    dataSet: "Commodity",
+    rowLength: 100,
+    maxColumns: 6,
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ height: 400, width: "100%" }}>
+      <DataGrid
+        {...data}
+        initialState={{
+          ...data.initialState,
+          pagination: { paginationModel: { pageSize: 5 } },
+        }}
+        pageSizeOptions={[5, 10, 25]}
+      />
     </div>
   );
 }
-
-export default App;
